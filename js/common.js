@@ -17,8 +17,8 @@ $(function(){
   $("#user_id, #user_pw").on("blur", function () {
     if($(this).val()=="") $(this).prev().css("left", "2px");
   });
+
   /*zoom 버튼*/
- 
   var base = 100;
   var mybody=$("body");
   $("#zoom a").on("click", function () {
@@ -37,14 +37,45 @@ $(function(){
   });
 
   /*프린트 버튼*/
-  
+  $(".print_btn").on("click", function () {
+    window.print();
+    return false;
+  });
    
   /*검색 창 안내 가이드*/
-  
+  $("#sch_f #keyword").on("focus", function () {
+    console.log("#keyword");
+    $(this).css("background-position", "0 -100px");
+  }).on("blur", function () {
+    if($(this).val()=="") $(this).css("background-position", "0 0")
+  });
 
   /*GNB메뉴*/
-  
+  var beforeEl;
+  $("#gnb > li > a").on("mouseoverover focus",function(){
+    if(beforeEl)beforeEl
+    .children("img")
+    .attr("src",beforeEl.children("img").attr("src").replace("over.gif", "out.gif"));
+    //마우스를 올린 <a>태그의 자식요소인 img를 attribute속성을 이용하여 src값은 over.gif가 out.gif로 치환됩니다. 
 
+    $("#gnb ul:visible").slideUp("fast");
+    //서브 메뉴 <ul> 태그 중 펼쳐져 보이는 메뉴가 있으면 숨깁니다.
+
+    $("img", this).attr("src", $("img", this).attr("src").replace("out.gif", "over.gif"));
+    //mouseover 또는 focus 이벤트가 발생한 <a> 태그에 하위 <img> 태그의 src 속성값 중에 "out.gif"가 over.gif로 치환됩니다.
+
+    $(this).next().stop().slideDown("normal");
+    //mouseover 또는 focus 이벤트가 발생한 <a> 태그 다음에 오는 서브 메뉴인 <ul> 태그가 아래로 펼쳐지며 나타납니다.
+
+    beforeEl=$(this); //마우스를 올린 상위 메뉴 <a> 태그가 변수 beforeEl에 저장됩니다.
+  });
+  $("#gnb").on("mouseleave", function(){
+    $("#gnb ul:visible").slideUp("fast");
+
+    if(beforeEl) beforeEl.children("img")
+    .attr("src",beforeEl.children("img").attr("src").replace("over.gif", "out.gif"));
+    //마우스를 올린 <a>태그의 자식요소인 img를 attribute속성을 이용하여 src값은 over.gif가 out.gif로 치환됩니다. 
+  });
   /*전체메뉴*/
   
 
