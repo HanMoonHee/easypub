@@ -76,11 +76,20 @@ $(function(){
     .attr("src",beforeEl.children("img").attr("src").replace("over.gif", "out.gif"));
     //마우스를 올린 <a>태그의 자식요소인 img를 attribute속성을 이용하여 src값은 over.gif가 out.gif로 치환됩니다. 
   });
+
   /*전체메뉴*/
-  
+  $("#total_btn a").on("click", function() {
+    $("#total_menu").slideDown("normal");
+    $("img", this).attr("src", $("img", this).attr("src").replace("out.gif", "over.gif"));
+    return false;
+  });
 
   /*전체 메뉴 닫기 버튼*/
-  
+  $("#total_close").on("click", function() {
+    $("#total_menu").slideUp("fast");
+    $("#total_btn a img").attr("src", $("#total_btn a img").attr("src").replace("over.gif", "out.gif"));
+    return false;
+  });
 
   /*날짜 표기*/
   
