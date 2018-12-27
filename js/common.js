@@ -92,11 +92,32 @@ $(function(){
   });
 
   /*날짜 표기*/
-  
+  var t = new Date();
+  var y = t.getFullYear();
+  var m = t.getMonth();
+  var d = t.getDate();
+
+  $(".year").text(y);
+  $(".month").text(m);
+  // document.getElementsByClassName("date").attr("text", y);
+  $(".date").text(d);
 
    /*관련 사이트 이동*/
-   
+   $("form[name=rel_f]").on("submit", function(){
+     var url=$("select",this).var();
+
+     window.open(url);
+     return false;
+   });
 
   /*퀵메뉴*/
+  var defaultTop=parseInt($("#quick_menu").css("top")); //document 상단에서 퀵메뉴가 이동한 거릿값을 파싱(가공)하여 정수로 반환후 변수에 넣는다.
   
+  $(window).on("scroll", function(){
+    var scv=$(window).scrollTop();
+    $("#quick_menu").stop().animate({top:scv+defaultTop+"px"}, 1000);
+    // 1초 만에 스크롤바가 이동된 만큼 퀵 메뉴가 앵니메이션이 적용되어 이동.
+    // css를 이용해 문서 상단에서 벌린 100px만큼 거리가 유지되도록 변수 defaultTop에 할당된 값을 더하였습니다.
+  });
+
 });
