@@ -94,7 +94,7 @@ $(function(){
   /*날짜 표기*/
   var t = new Date();
   var y = t.getFullYear();
-  var m = t.getMonth();
+  var m = t.getMonth()+1;
   var d = t.getDate();
 
   $(".year").text(y);
