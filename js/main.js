@@ -28,7 +28,19 @@ $(function(){
 
   /* 불릿버튼 클릭 */
   // 불릿버튼을 클릭할떄 함수 실행
-  // 불릿을 누른 index대로 해당 롤링이미지를 노출시킨다.
+  $(".touch_bullet li").on("click", function(){
+
+    // 불릿 index와 슬라이드 이미지가 서로 연동이 되어있는가?
+
+    // 클릭한 불릿버튼의 li요소에 인덱스 값을 구해온다
+    var bltNum=$(".touch_bullet li").index(this);
+
+    // 불릿을 누른 index대로 해당 롤링이미지를 노출시킨다.
+    
+
+
+  });
+  
   // 동시에 노출된 이미지 index 불릿은 active클래스를 생성해준다.
 
 
@@ -104,10 +116,51 @@ $(function(){
   var auto1=setTimeout(autoPlay, 3000);
 
   /*탭메뉴*/
-  
+  //초기에 활성화된 첫 번째 탭 버튼 <a>만 변수 onTab에 할당하였습니다.
+  var onTab=$("#tabmenu dt a:first");
+
+  //탭 버튼에 마우스오버, 포커스 이동, 클릭했을때 이벤트 핸들러가 실행됩니다.
+  $("#tabmenu dt a").on("mouseover focus click", function(){
+    //현재 보이는 게시물 목록을 숨깁니다.
+    $("#tabmenu dd:visible").hide();
+
+    //onTab에 할당된 요소의 하위<img>에 "src" 속성을 비활성화 버튼 이미지로 바꿉니다.
+    $("img", onTab).attr("src",$("img",onTab).attr("src").replace("over.gif","out.gif"));
+
+    //클릭한 <a>의 부모요소인 <dt>의 다음 요소만 노출시킵니다.
+    $(this).parent().next().show();
+
+    //클릭한 <a>의 하위 버튼 이미지를 활성화된 이미지로 바꿉니다.
+    $("img",this).attr("src",$("img",this).attr("src").replace("out.gif", "over.gif"));
+
+    onTab=$(this); //클릭한요소에 <a>가 onTab에 할당됩니다.
+    return false; //링크를 차단하였습니다.
+  });
 
   /* 베스트북 슬라이더 */
+  var mySlider=$("#best_bg ul").bxSlider({
+    mode:"horizontal", //수평방향으로 이동합니다.
+    speed:500,
+    pager:false,
+    moveSlides:1,
+    slideWidth:125,
+    minSlides:5,
+    maxSlides:5,
+    slideMargin:30,
+    auto:true,
+    autoHover:true,
+    controls:false
+  });
 
+  $(".prev_btn").on("click",function(){
+    mySlider.goToPrevSlide();
+    return false;
+  });
+
+  $(".next_btn").on("click", function(){
+    mySlider.goToNextSlide();
+    return false;
+  });
 
    /*팝업 연동*/
   
