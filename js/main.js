@@ -163,6 +163,23 @@ $(function(){
   });
 
    /*팝업 연동*/
-  
+  //"pop" 쿠키의 값이 "no"가 저장되어 있지 않으면 숨겨져 있던 팝업을 노출시킵니다.
+  if($.cookie("pop") != "no") $("#pop_wrap").show();
 
+  //id="pop_wrap"인 요소에 드래그 기능을 적용합니다.
+  $("#pop_wrap").css("cursor","move").draggable();
+
+  $("#pop_wrap area:eq(0)").on("click", function(){
+    $("#pop_wrap").fadeOut("fast");
+    return false;
+  });
+
+  $("#pop_wrap area:eq(1)").on("click",function(){
+    //하루동안 "pop"로 쿠키값 "no"가 저장됩니다.
+    $.cookie("pop","no",{expires:1});
+
+    //id="pop_wrap"인 요소가 투명해지며 사라집니다.
+    $("#pop_wrap").fadeOut("fast");
+    return false;
+  });
 });
